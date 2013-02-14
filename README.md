@@ -7,7 +7,7 @@ imageupload Directive for [AngularJS](http://angularjs.org/)
 
 heavly inspired from [http://www.rubydesigner.com/blog/resizing-images-before-upload-using-html5-canvas](http://www.rubydesigner.com/blog/resizing-images-before-upload-using-html5-canvas).
 
-See demo.html for an example.
+See [demo.html](demo.html) for an example.
 
 INFO: No Backend for demo.html so you can't test it at the moment -_-
 
