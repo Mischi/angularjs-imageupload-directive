@@ -7,10 +7,8 @@ imageupload Directive for [AngularJS](http://angularjs.org/)
 
 heavly inspired from [http://www.rubydesigner.com/blog/resizing-images-before-upload-using-html5-canvas](http://www.rubydesigner.com/blog/resizing-images-before-upload-using-html5-canvas).
 
-See [demo.html](demo.html) for an example.
 
-INFO: No Backend for demo.html so you can't test it at the moment -_-
-
+## Usage
 
     <imageupload 
         input-id="inputImage"
@@ -20,8 +18,16 @@ INFO: No Backend for demo.html so you can't test it at the moment -_-
         resize-max-height="320"
         resize-max-width="270">
     </imageupload>
+    
+See [demo.html](demo.html) for an example.
 
-Optional Parameter: input-id, resize-quality, resize-max-height, resize-max-width
+### Optional Parameter: 
+
+- resize-quality
+- resize-max-height
+- resize-max-width
+
+(INFO: optional resized-image will come soon.)
 
 ## Features
 
