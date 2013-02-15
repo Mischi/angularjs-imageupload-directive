@@ -44,8 +44,14 @@ Optional Parameter: input-id, resize-quality, resize-max-height, resize-max-widt
 
 ## Tested in following browsers:
 
-- Chrome 24 (Windows 8)
-- Chrome Canary 27 (Windows 8)
-- Firefox 18 (Windows 8)
-- Internet Explorer 10 (Windows 8)
+Testimage: 4320x3240 4.22 MB, Resized (70% jpg): 320x270   
 
+- Chrome 24 (Windows 8), Size: 9.3 KB
+- Chrome Canary 27 (Windows 8), Size: 9.3 KB
+- Firefox 18 (Windows 8), Size: 23.5 KB
+- Internet Explorer 10 (Windows 8), Size: 9.06 KB
+
+## Known Issues
+
+- Firefox 18 (Windows 8) / BUG: filename gets lost and file is just called "blob", working on that...
+- filesize can vary from Browser to Browser.
