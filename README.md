@@ -34,9 +34,18 @@ Optional Parameter: input-id, resize-quality, resize-max-height, resize-max-widt
     git clone https://github.com/Mischi/angularjs-imageupload-directive.git
     cd angularjs-imageupload-directive
     npm install
+
     node app.js
     open http://localhost:8080
 
 ## Depends on
 
 - [blueimp/JavaScript-Canvas-to-Blob](https://github.com/blueimp/JavaScript-Canvas-to-Blob)
+
+## Tested in following browsers:
+
+- Chrome 24 (Windows 8)
+- Chrome Canary 27 (Windows 8)
+- Firefox 18 (Windows 8)
+- Internet Explorer 10 (Windows 8)
+
