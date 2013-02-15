@@ -18,12 +18,15 @@ app.get('/', function(req, res){
 });
 
 app.post('/upload', function(req, res) {
-    var imageName =  req.files.image.name;
-    var newImageLocation = path.join(__dirname, 'public/images', imageName);
+    var image =  req.files.image;
+    var newImageLocation = path.join(__dirname, 'public/images', image.name);
     
-    fs.readFile(req.files.image.path, function(err, data) {
+    fs.readFile(image.path, function(err, data) {
         fs.writeFile(newImageLocation, data, function(err) {
-            res.json(200, { src: 'images/' + imageName });
+            res.json(200, { 
+                src: 'images/' + image.name,
+                size: image.size
+            });
         });
     });
 });

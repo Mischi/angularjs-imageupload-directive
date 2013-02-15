@@ -21,7 +21,7 @@
         </div>
     </form>  
     
-    <p>Uploaded Image</p>
+    <p>Uploaded Image / Size: {{sizeInBytes}} Bytes</p>
     <img ng-src="{{uploadedImgSrc}}" />
         
     <script src="javascripts/angular.min.js" type="text/javascript"></script>
@@ -38,6 +38,7 @@
                         transformRequest: angular.identity
                     }).success(function(result) {
                         $scope.uploadedImgSrc = result.src;
+                        $scope.sizeInBytes = result.size;
                     });
                 };
             });
