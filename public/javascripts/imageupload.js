@@ -68,7 +68,7 @@ angular.module('imageuploadDemo')
                 template: '<div>' +
                             '<input id="{{inputId}}" type="file">' +
                             '<div>' +
-                                '<img ng-show="resizeImage" ng-src="{{resizedImageUrl}}" type="{{image.type}}">' +
+                                '<img ng-show="resizeImage" ng-src="{{resizeImage.url}}" type="{{image.type}}">' +
                             '</div>' +
                           '</div>',
                 link: function postLink(scope, element, attrs) {
@@ -111,9 +111,7 @@ angular.module('imageuploadDemo')
                                     //attach image name to resizedImageBlob
                                     resizedImageBlob.name = image.name;
 
-                                    scope.$apply(function () {
-                                        scope.resizedImageUrl = resizedImageBlob.url;
-                                                        
+                                    scope.$apply(function () {                                                       
                                         scope.originalImage = origImageBlob;
                                         scope.resizeImage = resizedImageBlob;
                                     });
