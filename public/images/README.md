@@ -1,0 +1,1 @@
+Uploaded images are droped to this folder.

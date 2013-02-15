@@ -90,7 +90,9 @@ angular.module('imageuploadDemo')
 
                             //create Blob from loaded ArrayBuffer
                             var origImageBlob = new Blob([new Int8Array(e.target.result)], { type: image.type });
-                            var origImageUrl = URL.createObjectURL(origImageBlob);
+                            
+                            //attach url to origImageBlob
+                            origImageBlob.url = URL.createObjectURL(origImageBlob);
 
                             //attach image name to origImageBlob
                             origImageBlob.name = image.name;
@@ -103,13 +105,14 @@ angular.module('imageuploadDemo')
                                     maxWidth: scope.resizeMaxWidth,
                                     quality: scope.resizeQuality
                                 }, function (resizedImageBlob) {
-                                    var resizedImageUrl = URL.createObjectURL(resizedImageBlob);
+                                    //attach url to resizedImageBlob
+                                    resizedImageBlob.url = URL.createObjectURL(resizedImageBlob);
 
                                     //attach image name to resizedImageBlob
                                     resizedImageBlob.name = image.name;
 
                                     scope.$apply(function () {
-                                        scope.resizedImageUrl = resizedImageUrl;
+                                        scope.resizedImageUrl = resizedImageBlob.url;
                                                         
                                         scope.originalImage = origImageBlob;
                                         scope.resizeImage = resizedImageBlob;
@@ -118,7 +121,7 @@ angular.module('imageuploadDemo')
                             };
 
                             //load origImage into image element
-                            origImage.src = origImageUrl;
+                            origImage.src = origImageBlob.url;
                         };
 
                         // Read in the image file as ArrayBuffer.                       

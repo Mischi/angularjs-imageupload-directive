@@ -29,6 +29,14 @@ Optional Parameter: input-id, resize-quality, resize-max-height, resize-max-widt
 - Resize Image via canvas
 - Send Image Blob with FormData and $http
 
+## How to run the Demo?
+
+    git clone https://github.com/Mischi/angularjs-imageupload-directive.git
+    cd angularjs-imageupload-directive
+    npm install
+    node app.js
+    open http://localhost:8080
+
 ## Depends on
 
 - [blueimp/JavaScript-Canvas-to-Blob](https://github.com/blueimp/JavaScript-Canvas-to-Blob)
