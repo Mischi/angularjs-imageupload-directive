@@ -16,7 +16,7 @@ angular.module('imageuploadDemo')
                 }
 
                 return resizeArea;
-            };
+            }
 
             var resizeImage = function (origImage, options, callback) {
                 options.maxHeight = options.maxHeight || 300;
@@ -24,6 +24,7 @@ angular.module('imageuploadDemo')
                 options.quality = options.quality || 0.7;
 
                 var canvas = getResizeArea();
+                
                 var height = origImage.height;
                 var width = origImage.width;
 
@@ -61,28 +62,16 @@ angular.module('imageuploadDemo')
                     inputId: '@',
                     originalImage: '=',
                     resizeImage: '=',
-                    showError: "@",
-                    errorMessage: "@",
                     resizeMaxHeight: '@',
-                    resizeMaxWidth: '@'
+                    resizeMaxWidth: '@',
                 },
                 template: '<div>' +
                             '<input id="{{inputId}}" type="file">' +
-                            '<a id="removeButton" ng-show="resizeImage">x</a>' +
-                            '<div ng-show="!showError">' +
+                            '<div>' +
                                 '<img ng-show="resizeImage" ng-src="{{resizeImage.url}}" type="{{image.type}}">' +
-                            '</div>' +
-                            '<div style="color:#ef3e42;">' +
-                              '<span ng-show="showError">{{errorMessage}}</span>' +
                             '</div>' +
                           '</div>',
                 link: function postLink(scope, element, attrs) {
-                    element.children('#removeButton').bind('click', function() {
-                        element.children('#' + scope.inputId).val('');
-                        scope.$apply(function(){
-                          scope.originalImage = scope.image = scope.resizeImage = null;
-                        });
-                    });
                     element.bind('change', function (evt) {
                         var image = scope.image = evt.target.files[0];
 
@@ -92,15 +81,7 @@ angular.module('imageuploadDemo')
 
                         // Only process image files.
                         if (!image.type.match('image.*')) {
-                            scope.$apply(function() {
-                                scope.showError = true;
-                                scope.errorMessage = "It must be an image (it will be ignored).";
-                            });
                             return;
-                        }else{
-                            scope.$apply(function() {
-                                scope.showError = false;
-                            });
                         }
 
                         var reader = new FileReader();
@@ -109,6 +90,7 @@ angular.module('imageuploadDemo')
 
                             //create Blob from loaded ArrayBuffer
                             var origImageBlob = new Blob([new Int8Array(e.target.result)], { type: image.type });
+                            
                             //attach url to origImageBlob
                             origImageBlob.url = URL.createObjectURL(origImageBlob);
 
@@ -119,7 +101,7 @@ angular.module('imageuploadDemo')
                             var origImage = new Image();
                             origImage.onload = function () {
                                 resizeImage(origImage, {
-                                    maxHeight: scope.resizeMaxHeight,
+                                    maxHeight: scope.resizeMaxHeight, 
                                     maxWidth: scope.resizeMaxWidth,
                                     quality: scope.resizeQuality
                                 }, function (resizedImageBlob) {
@@ -129,7 +111,7 @@ angular.module('imageuploadDemo')
                                     //attach image name to resizedImageBlob
                                     resizedImageBlob.name = image.name;
 
-                                    scope.$apply(function () {
+                                    scope.$apply(function () {                                                       
                                         scope.originalImage = origImageBlob;
                                         scope.resizeImage = resizedImageBlob;
                                     });
