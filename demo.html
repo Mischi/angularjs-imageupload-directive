@@ -3,35 +3,96 @@
         <title>imageupload Demo</title>
     </head>
     <body ng-controller="DemoCtrl">
-    <form name="contactform" class="form-horizontal">  
-        <div class="control-group">
-            <label class="control-label" for="inputImage">Image</label>
-            <div class="controls">
-                <imageupload 
-                    input-id="inputImage"
-                    original-image="data.imageBig"        
-                    resize-image="data.image"
-                    resize-quality="0.7"
-                    resize-max-height="320"
-                    resize-max-width="270">
-                </imageupload>
-                
-                <button type="submit" ng-click="ok(data)">Add</button>
-            </div>
+    <form name="contactform">  
+        <h2>Single image</h2>
+        <div>
+            <label for="inputImage">Image</label>
+            
+            <input id="inputImage" type="file" accept="image/*" image="data.image" />
+            
+            <img ng-show="data.image" ng-src="{{data.image.url}}" type="{{data.image.type}}"/> 
+            <button type="submit" ng-click="single(data.image)">Add</button>
         </div>
+        <hr />
+
+
+
+
+        <h2>Single image with resizing</h2>
+        <div>
+            <label for="inputImage2">Image 2</label>
+            
+            <input id="inputImage2" 
+                type="file" 
+                accept="image/*" 
+                image="data.image2" 
+                resize-max-height="300"
+                resize-max-width="250"
+                resize-quality="0.7" />
+            
+            <p>Original</p>
+            <img ng-show="data.image2" ng-src="{{data.image2.url}}" type="{{data.image2.type}}"/>
+            <p>Resized</p>
+            <img ng-show="data.image2" ng-src="{{data.image2.resized.url}}" type="{{data.image2.resized.type}}"/>
+            <button type="submit" ng-click="single(data.image2.resized)">Add</button>
+        </div>
+        <hr />
+
+
+
+
+        <h2>Multiple images</h2>
+        <div>
+            <label for="inputImage3">Image 3</label>
+            
+            <input id="inputImage3" 
+                type="file" 
+                accept="image/*" 
+                multiple
+                image="data.images3" />
+            
+            <p>Originals</p>
+            <img ng-repeat="img in data.images3" ng-src="{{img.url}}" type="{{img.type}}"/>
+            <button type="submit">Add</button>
+        </div>
+        <hr />
+
+
+
+
+        <h2>Multiple images with resizing</h2>
+        <div> 
+            <label for="inputImage4">Image 4</label>
+
+            <input id="inputImage4" 
+                type="file" 
+                accept="image/*" 
+                multiple
+                image="data.images4" 
+                resize-max-height="300"
+                resize-max-width="250"
+                resize-quality="0.7" />
+            
+            <p>Originals</p>
+            <img ng-repeat="img in data.images4" ng-src="{{img.url}}" type="{{img.type}}"/>
+            <p>Resized</p>
+            <img ng-repeat="img in data.images4" ng-src="{{img.resized.url}}" type="{{img.resized.type}}"/>
+            <button type="submit">Add</button>
+        </div>
+        <hr />
     </form>  
     
     <p>Uploaded Image / Size: {{sizeInBytes}} Bytes</p>
     <img ng-src="{{uploadedImgSrc}}" />
         
-    <script src="javascripts/angular.min.js" type="text/javascript"></script>
+    <script src="javascripts/angular.min.js" " type="text/javascript"></script>
     <script src="javascripts/canvas-to-blob.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-          angular.module('imageuploadDemo', [])
+          angular.module('imageuploadDemo', ['imageupload'])
             .controller('DemoCtrl', function($scope, $http) {
-                $scope.ok = function(data) {
+                $scope.single = function(image) {
                     var formData = new FormData();
-                    formData.append('image', data.image, data.image.name);
+                    formData.append('image', image, image.name);
 
                     $http.post('upload', formData, {
                         headers: { 'Content-Type': false },
