@@ -10,16 +10,32 @@ heavly inspired from [http://www.rubydesigner.com/blog/resizing-images-before-up
 
 ## Usage
 
-    <imageupload 
-        input-id="inputImage"
-        original-image="data.imageBig"        
-        resize-image="data.image"
-        resize-quality="0.7"
-        resize-max-height="320"
-        resize-max-width="270">
-    </imageupload>
+### Single image 
+
+    <input type="file" accept="image/*" image="image"/>
+    <img ng-show="image" ng-src="{{image.url}}" type="{{image.type}}" />
+
+### Single image with resizing
+
+    <input type="file" accept="image/*" image="image2"
+        resize-max-height="300"
+        resize-max-width="250"
+        resize-quality="0.7" />
+    Original <img ng-show="image2" ng-src="{{image2.url}}" type="{{image2.type}}" />
+    Resized <img ng-show="image2" ng-src="{{image2.resized.url}}" type="{{image2.resized.type}}" />
     
-See [demo.html](demo.html) for an example.
+### Multiple images with resizing
+
+    <input type="file" accept="image/*" multiple
+        image="images"
+        resize-max-height="300"
+        resize-max-width="250"
+        resize-quality="0.7" />
+    Originals <img ng-repeat="img in images" ng-src="{{img.url}}" type="{{img.type}}" />
+    Resized <img ng-repeat="img in images" ng-src="{{img.resized.url}}" type="{{img.resized.type}}" />
+        
+
+See [demo.html](demo.html) for more concrete examples.
 
 ### Optional Parameter: 
 
@@ -27,7 +43,6 @@ See [demo.html](demo.html) for an example.
 - resize-max-height
 - resize-max-width
 
-(INFO: optional resized-image will come soon.)
 
 ## Features
 
@@ -46,6 +61,7 @@ See [demo.html](demo.html) for an example.
 
 ## Depends on
 
+- angular-1.1.4
 - [blueimp/JavaScript-Canvas-to-Blob](https://github.com/blueimp/JavaScript-Canvas-to-Blob)
 
 ## Tested in following browsers:
