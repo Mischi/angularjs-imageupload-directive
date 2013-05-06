@@ -18,9 +18,9 @@ angular.module('imageupload', [])
         }
 
         var resizeImage = function (origImage, options, callback) {
-            options.maxHeight = options.maxHeight || 300;
-            options.maxWidth = options.maxWidth || 250;
-            options.quality = options.quality || 0.7;
+            var maxHeight = options.resizeMaxHeight || 300;
+            var maxWidth = options.resizeMaxWidth || 250;
+            var quality = options.resizeQuality || 0.7;
 
             var canvas = getResizeArea();
             
@@ -29,16 +29,14 @@ angular.module('imageupload', [])
 
             // calculate the width and height, constraining the proportions
             if (width > height) {
-                if (width > options.maxWidth) {
-                    //height *= options.maxWidth / width;
-                    height = Math.round(height *= options.maxWidth / width);
-                    width = options.maxWidth;
+                if (width > maxWidth) {
+                    height = Math.round(height *= maxWidth / width);
+                    width = maxWidth;
                 }
             } else {
-                if (height > options.maxHeight) {
-                    //width *= options.maxHeight / height;
-                    width = Math.round(width *= options.maxHeight / height);
-                    height = options.maxHeight;
+                if (height > maxHeight) {
+                    width = Math.round(width *= maxHeight / height);
+                    height = maxHeight;
                 }
             }
 
@@ -50,7 +48,7 @@ angular.module('imageupload', [])
             ctx.drawImage(origImage, 0, 0, width, height);
 
             // get the data from canvas as 70% jpg
-            canvas.toBlob(callback, "image/jpeg", options.quality);
+            canvas.toBlob(callback, "image/jpeg", quality);
         };
 
 
@@ -117,11 +115,7 @@ angular.module('imageupload', [])
                             loadAsBlob(imageResult, function(imageResult) {
                                 //create image
                                 createImage(imageResult.url, function(image) {
-                                    resizeImage(image, {
-                                        maxHeight: scope.resizeMaxHeight, 
-                                        maxWidth: scope.resizeMaxWidth,
-                                        quality: scope.resizeQuality
-                                    }, function (resizedImageBlob) {
+                                    resizeImage(image, scope, function (resizedImageBlob) {
                                         imageResult.resized = {
                                             blob: resizedImageBlob,
                                             url: URL.createObjectURL(resizedImageBlob)
