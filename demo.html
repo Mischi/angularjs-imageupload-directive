@@ -8,10 +8,10 @@
         <div>
             <label for="inputImage">Image</label>
             
-            <input id="inputImage" type="file" accept="image/*" image="data.image" />
+            <input id="inputImage" type="file" accept="image/*" image="image" />
             
-            <img ng-show="data.image" ng-src="{{data.image.url}}" type="{{data.image.type}}"/> 
-            <button type="submit" ng-click="single(data.image)">Add</button>
+            <img ng-show="image" ng-src="{{image.url}}" type="{{image.blob.type}}"/> 
+            <button type="submit" ng-click="single(image)">Add</button>
         </div>
         <hr />
 
@@ -25,16 +25,16 @@
             <input id="inputImage2" 
                 type="file" 
                 accept="image/*" 
-                image="data.image2" 
+                image="image2" 
                 resize-max-height="300"
                 resize-max-width="250"
                 resize-quality="0.7" />
             
             <p>Original</p>
-            <img ng-show="data.image2" ng-src="{{data.image2.url}}" type="{{data.image2.type}}"/>
+            <img ng-show="image2" ng-src="{{image2.url}}" type="{{image2.blob.type}}"/>
             <p>Resized</p>
-            <img ng-show="data.image2" ng-src="{{data.image2.resized.url}}" type="{{data.image2.resized.type}}"/>
-            <button type="submit" ng-click="single(data.image2.resized)">Add</button>
+            <img ng-show="image2" ng-src="{{image2.resized.url}}" type="{{image2.resized.blob.type}}"/>
+            <button type="submit" ng-click="single(image2.resized)">Add</button>
         </div>
         <hr />
 
@@ -49,10 +49,10 @@
                 type="file" 
                 accept="image/*" 
                 multiple
-                image="data.images3" />
+                image="images3" />
             
             <p>Originals</p>
-            <img ng-repeat="img in data.images3" ng-src="{{img.url}}" type="{{img.type}}"/>
+            <img ng-repeat="img in images3" ng-src="{{img.url}}" type="{{img.blob.type}}"/>
             <button type="submit">Add</button>
         </div>
         <hr />
@@ -68,15 +68,15 @@
                 type="file" 
                 accept="image/*" 
                 multiple
-                image="data.images4" 
+                image="images4" 
                 resize-max-height="300"
                 resize-max-width="250"
                 resize-quality="0.7" />
             
             <p>Originals</p>
-            <img ng-repeat="img in data.images4" ng-src="{{img.url}}" type="{{img.type}}"/>
+            <img ng-repeat="img in images4" ng-src="{{img.url}}" type="{{img.type.type}}"/>
             <p>Resized</p>
-            <img ng-repeat="img in data.images4" ng-src="{{img.resized.url}}" type="{{img.resized.type}}"/>
+            <img ng-repeat="img in images4" ng-src="{{img.resized.url}}" type="{{img.resized.blob.type}}"/>
             <button type="submit">Add</button>
         </div>
         <hr />

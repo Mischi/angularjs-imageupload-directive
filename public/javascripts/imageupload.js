@@ -54,27 +54,21 @@ angular.module('imageupload', [])
         };
 
 
-        var loadAsBlob = function(file, callback) {
+        var loadAsBlob = function(imageResult, callback) {
             var reader = new FileReader();
             reader.onload = function(evt) {
                 
                 //create Blob from loaded ArrayBuffer
-                var blob = new Blob([new Int8Array(evt.target.result)], { type: file.type });
+                imageResult.blob = new Blob([new Int8Array(evt.target.result)], { type: imageResult.file.type });
                             
                 //attach url to blob
-                blob.url = URL.createObjectURL(blob);
+                imageResult.url = URL.createObjectURL(imageResult.blob);
 
-                //attach file name to blob
-                blob.name = file.name;
-
-                //attach file type to blob
-                blob.type = file.type;
-
-                callback(blob);
+                callback(imageResult);
             };
 
             // Read in the image file as ArrayBuffer.                       
-            reader.readAsArrayBuffer(file);
+            reader.readAsArrayBuffer(imageResult.file);
         };
 
         var createImage = function(url, callback) {
@@ -96,12 +90,12 @@ angular.module('imageupload', [])
             },
             link: function postLink(scope, element, attrs, ctrl) {
                 
-                var applyScope = function(imageBlob) {
+                var applyScope = function(imageResult) {
                     scope.$apply(function() {
                         if(attrs.multiple)
-                            scope.image.push(imageBlob);
+                            scope.image.push(imageResult);
                         else
-                            scope.image = imageBlob; 
+                            scope.image = imageResult; 
                     });
                 };
 
@@ -114,35 +108,32 @@ angular.module('imageupload', [])
                     var files = evt.target.files;
 
                     for(var i = 0; i < files.length; i++) {
-                        var imageFile = files[i];
+                        //create a result object for each file in files
+                        var imageResult = {
+                            file: files[i]
+                        };
                         
                         if(scope.resizeMaxHeight || scope.resizeMaxWidth) { //resize image
-                            loadAsBlob(imageFile, function(imageBlob) {
+                            loadAsBlob(imageResult, function(imageResult) {
                                 //create image
-                                createImage(imageBlob.url, function(image) {
+                                createImage(imageResult.url, function(image) {
                                     resizeImage(image, {
                                         maxHeight: scope.resizeMaxHeight, 
                                         maxWidth: scope.resizeMaxWidth,
                                         quality: scope.resizeQuality
                                     }, function (resizedImageBlob) {
-                                        //attach url to resizedImageBlob
-                                        resizedImageBlob.url = URL.createObjectURL(resizedImageBlob);
+                                        imageResult.resized = {
+                                            blob: resizedImageBlob,
+                                            url: URL.createObjectURL(resizedImageBlob)
+                                        };
 
-                                        //attach image name to resizedImageBlob
-                                        resizedImageBlob.name = imageFile.name;
-
-                                        //attach image type to resizedImageBlob
-                                        resizedImageBlob.type = imageFile.type;
-
-                                        imageBlob.resized = resizedImageBlob;
-                                        
-                                        applyScope(imageBlob);
+                                        applyScope(imageResult);
                                     });
                                 });
                             });
                         }
                         else { //no resizing
-                            loadAsBlob(imageFile, applyScope);
+                            loadAsBlob(imageResult, applyScope);
                         }
                     }
                 });
