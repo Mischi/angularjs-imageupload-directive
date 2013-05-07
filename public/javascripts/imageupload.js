@@ -59,6 +59,7 @@ angular.module('imageupload', [])
             image.src = url;
         };
 
+
         return {
             restrict: 'A',
             scope: {
@@ -69,9 +70,22 @@ angular.module('imageupload', [])
                 resizeQuality: '@?'
             },
             link: function postLink(scope, element, attrs, ctrl) {
+
+                var doResizing = function(imageResult, callback) {
+                    createImage(imageResult.url, function(image) {
+                        resizeImage(image, scope, function (resizedImageBlob) {
+                            imageResult.resized = {
+                                blob: resizedImageBlob,
+                                url: URL.createObjectURL(resizedImageBlob)
+                            };
+                            callback(imageResult);
+                        });
+                    });
+                };
                 
                 var applyScope = function(imageResult) {
                     scope.$apply(function() {
+                        //console.log(imageResult);
                         if(attrs.multiple)
                             scope.image.push(imageResult);
                         else
@@ -86,25 +100,16 @@ angular.module('imageupload', [])
                         scope.image = [];
 
                     var files = evt.target.files;
-
                     for(var i = 0; i < files.length; i++) {
                         //create a result object for each file in files
                         var imageResult = {
                             file: files[i],
-                            url: URL.createObjectURL(files[i]);
+                            url: URL.createObjectURL(files[i])
                         };
                         
                         if(scope.resizeMaxHeight || scope.resizeMaxWidth) { //resize image
-                            //create image
-                            createImage(imageResult.url, function(image) {
-                                resizeImage(image, scope, function (resizedImageBlob) {
-                                    imageResult.resized = {
-                                        blob: resizedImageBlob,
-                                        url: URL.createObjectURL(resizedImageBlob)
-                                    };
-
-                                    applyScope(imageResult);
-                                });
+                            doResizing(imageResult, function(imageResult) {
+                                applyScope(imageResult);
                             });
                         }
                         else { //no resizing
