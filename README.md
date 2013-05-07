@@ -13,7 +13,7 @@ heavly inspired from [http://www.rubydesigner.com/blog/resizing-images-before-up
 ### Single image 
 
     <input type="file" accept="image/*" image="image"/>
-    <img ng-show="image" ng-src="{{image.url}}" type="{{image.type}}" />
+    <img ng-show="image" ng-src="{{image.url}}" type="{{image.blob.type}}" />
 
 ### Single image with resizing
 
@@ -21,8 +21,8 @@ heavly inspired from [http://www.rubydesigner.com/blog/resizing-images-before-up
         resize-max-height="300"
         resize-max-width="250"
         resize-quality="0.7" />
-    Original <img ng-show="image2" ng-src="{{image2.url}}" type="{{image2.type}}" />
-    Resized <img ng-show="image2" ng-src="{{image2.resized.url}}" type="{{image2.resized.type}}" />
+    Original <img ng-show="image2" ng-src="{{image2.url}}" type="{{image2.blob.type}}" />
+    Resized <img ng-show="image2" ng-src="{{image2.resized.url}}" type="{{image2.resized.blob.type}}" />
     
 ### Multiple images with resizing
 
@@ -31,8 +31,8 @@ heavly inspired from [http://www.rubydesigner.com/blog/resizing-images-before-up
         resize-max-height="300"
         resize-max-width="250"
         resize-quality="0.7" />
-    Originals <img ng-repeat="img in images" ng-src="{{img.url}}" type="{{img.type}}" />
-    Resized <img ng-repeat="img in images" ng-src="{{img.resized.url}}" type="{{img.resized.type}}" />
+    Originals <img ng-repeat="img in images" ng-src="{{img.url}}" type="{{img.blob.type}}" />
+    Resized <img ng-repeat="img in images" ng-src="{{img.resized.url}}" type="{{img.resized.blob.type}}" />
         
 
 See [demo.html](demo.html) for more concrete examples.
