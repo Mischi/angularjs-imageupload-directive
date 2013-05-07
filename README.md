@@ -17,8 +17,8 @@ heavly inspired from [http://www.rubydesigner.com/blog/resizing-images-before-up
 
 The image object has the following properties:
 
-    - file
-    - url
+- file
+- url
 
 ### Single image with resizing
 
@@ -31,11 +31,11 @@ The image object has the following properties:
     
 The image object has the following properties:
 
-    - file
+- file
+- url
+- resized
+    - blob
     - url
-    - resized
-        - blob
-        - url
 
 ### Multiple images with resizing
 
@@ -49,11 +49,11 @@ The image object has the following properties:
         
 When used with multiple the image object is always an array of objects with the following properties:
 
-    - file
+- file
+- url
+- resized
+    - blob
     - url
-    - resized
-        - blob
-        - url
 
 See [demo.html](demo.html) for more concrete examples.
 
