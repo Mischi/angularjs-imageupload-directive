@@ -15,6 +15,11 @@ heavly inspired from [http://www.rubydesigner.com/blog/resizing-images-before-up
     <input type="file" accept="image/*" image="image"/>
     <img ng-show="image" ng-src="{{image.url}}" type="{{image.blob.type}}" />
 
+The image object has the following properties:
+
+    - file
+    - url
+
 ### Single image with resizing
 
     <input type="file" accept="image/*" image="image2"
@@ -24,6 +29,14 @@ heavly inspired from [http://www.rubydesigner.com/blog/resizing-images-before-up
     Original <img ng-show="image2" ng-src="{{image2.url}}" type="{{image2.blob.type}}" />
     Resized <img ng-show="image2" ng-src="{{image2.resized.url}}" type="{{image2.resized.blob.type}}" />
     
+The image object has the following properties:
+
+    - file
+    - url
+    - resized
+        - blob
+        - url
+
 ### Multiple images with resizing
 
     <input type="file" accept="image/*" multiple
@@ -34,6 +47,13 @@ heavly inspired from [http://www.rubydesigner.com/blog/resizing-images-before-up
     Originals <img ng-repeat="img in images" ng-src="{{img.url}}" type="{{img.blob.type}}" />
     Resized <img ng-repeat="img in images" ng-src="{{img.resized.url}}" type="{{img.resized.blob.type}}" />
         
+When used with multiple the image object is always an array of objects with the following properties:
+
+    - file
+    - url
+    - resized
+        - blob
+        - url
 
 See [demo.html](demo.html) for more concrete examples.
 

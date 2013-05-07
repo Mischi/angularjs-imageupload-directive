@@ -10,7 +10,7 @@
             
             <input id="inputImage" type="file" accept="image/*" image="image" />
             
-            <img ng-show="image" ng-src="{{image.url}}" type="{{image.blob.type}}"/> 
+            <img ng-show="image" ng-src="{{image.url}}" type="{{image.file.type}}"/> 
             <button type="submit" ng-click="single(image)">Add</button>
         </div>
         <hr />
@@ -31,7 +31,7 @@
                 resize-quality="0.7" />
             
             <p>Original</p>
-            <img ng-show="image2" ng-src="{{image2.url}}" type="{{image2.blob.type}}"/>
+            <img ng-show="image2" ng-src="{{image2.url}}" type="{{image2.file.type}}"/>
             <p>Resized</p>
             <img ng-show="image2" ng-src="{{image2.resized.url}}" type="{{image2.resized.blob.type}}"/>
             <button type="submit" ng-click="single(image2.resized)">Add</button>
@@ -52,7 +52,7 @@
                 image="images3" />
             
             <p>Originals</p>
-            <img ng-repeat="img in images3" ng-src="{{img.url}}" type="{{img.blob.type}}"/>
+            <img ng-repeat="img in images3" ng-src="{{img.url}}" type="{{img.file.type}}"/>
             <button type="submit">Add</button>
         </div>
         <hr />
@@ -74,7 +74,7 @@
                 resize-quality="0.7" />
             
             <p>Originals</p>
-            <img ng-repeat="img in images4" ng-src="{{img.url}}" type="{{img.type.type}}"/>
+            <img ng-repeat="img in images4" ng-src="{{img.url}}" type="{{img.file.type}}"/>
             <p>Resized</p>
             <img ng-repeat="img in images4" ng-src="{{img.resized.url}}" type="{{img.resized.blob.type}}"/>
             <button type="submit">Add</button>

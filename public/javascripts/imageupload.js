@@ -51,24 +51,6 @@ angular.module('imageupload', [])
             canvas.toBlob(callback, "image/jpeg", quality);
         };
 
-
-        var loadAsBlob = function(imageResult, callback) {
-            var reader = new FileReader();
-            reader.onload = function(evt) {
-                
-                //create Blob from loaded ArrayBuffer
-                imageResult.blob = new Blob([new Int8Array(evt.target.result)], { type: imageResult.file.type });
-                            
-                //attach url to blob
-                imageResult.url = URL.createObjectURL(imageResult.blob);
-
-                callback(imageResult);
-            };
-
-            // Read in the image file as ArrayBuffer.                       
-            reader.readAsArrayBuffer(imageResult.file);
-        };
-
         var createImage = function(url, callback) {
             var image = new Image();
             image.onload = function() {
@@ -108,26 +90,25 @@ angular.module('imageupload', [])
                     for(var i = 0; i < files.length; i++) {
                         //create a result object for each file in files
                         var imageResult = {
-                            file: files[i]
+                            file: files[i],
+                            url: URL.createObjectURL(files[i]);
                         };
                         
                         if(scope.resizeMaxHeight || scope.resizeMaxWidth) { //resize image
-                            loadAsBlob(imageResult, function(imageResult) {
-                                //create image
-                                createImage(imageResult.url, function(image) {
-                                    resizeImage(image, scope, function (resizedImageBlob) {
-                                        imageResult.resized = {
-                                            blob: resizedImageBlob,
-                                            url: URL.createObjectURL(resizedImageBlob)
-                                        };
+                            //create image
+                            createImage(imageResult.url, function(image) {
+                                resizeImage(image, scope, function (resizedImageBlob) {
+                                    imageResult.resized = {
+                                        blob: resizedImageBlob,
+                                        url: URL.createObjectURL(resizedImageBlob)
+                                    };
 
-                                        applyScope(imageResult);
-                                    });
+                                    applyScope(imageResult);
                                 });
                             });
                         }
                         else { //no resizing
-                            loadAsBlob(imageResult, applyScope);
+                            applyScope(imageResult);
                         }
                     }
                 });
