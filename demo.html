@@ -11,7 +11,8 @@
             <input id="inputImage" type="file" accept="image/*" image="image" />
             
             <img ng-show="image" ng-src="{{image.url}}" type="{{image.file.type}}"/> 
-            <button type="submit" ng-click="single(image)">Add</button>
+            <button type="submit" ng-click="single(image)" disabled>Add</button>
+            <button type="reset">Clear</button>
         </div>
         <hr />
 
@@ -34,7 +35,7 @@
             <img ng-show="image2" ng-src="{{image2.url}}" type="{{image2.file.type}}"/>
             <p>Resized</p>
             <img ng-show="image2" ng-src="{{image2.resized.url}}" type="{{image2.resized.blob.type}}"/>
-            <button type="submit" ng-click="single(image2.resized)">Add</button>
+            <button type="submit" ng-click="single(image2.resized)" disabled>Add</button>
         </div>
         <hr />
 
@@ -53,7 +54,7 @@
             
             <p>Originals</p>
             <img ng-repeat="img in images3" ng-src="{{img.url}}" type="{{img.file.type}}"/>
-            <button type="submit">Add</button>
+            <button type="submit" disabled>Add</button>
         </div>
         <hr />
 
@@ -77,7 +78,7 @@
             <img ng-repeat="img in images4" ng-src="{{img.url}}" type="{{img.file.type}}"/>
             <p>Resized</p>
             <img ng-repeat="img in images4" ng-src="{{img.resized.url}}" type="{{img.resized.blob.type}}"/>
-            <button type="submit">Add</button>
+            <button type="submit" disabled>Add</button>
         </div>
         <hr />
     </form>  
