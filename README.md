@@ -13,7 +13,7 @@ heavly inspired from [http://www.rubydesigner.com/blog/resizing-images-before-up
 ### Single image 
 
     <input type="file" accept="image/*" image="image"/>
-    <img ng-show="image" ng-src="{{image.url}}" type="{{image.blob.type}}" />
+    <img ng-show="image" ng-src="{{image.url}}" type="{{image.file.type}}" />
 
 The image object has the following properties:
 
@@ -26,7 +26,7 @@ The image object has the following properties:
         resize-max-height="300"
         resize-max-width="250"
         resize-quality="0.7" />
-    Original <img ng-show="image2" ng-src="{{image2.url}}" type="{{image2.blob.type}}" />
+    Original <img ng-show="image2" ng-src="{{image2.url}}" type="{{image2.file.type}}" />
     Resized <img ng-show="image2" ng-src="{{image2.resized.url}}" type="{{image2.resized.blob.type}}" />
     
 The image object has the following properties:
@@ -44,7 +44,7 @@ The image object has the following properties:
         resize-max-height="300"
         resize-max-width="250"
         resize-quality="0.7" />
-    Originals <img ng-repeat="img in images" ng-src="{{img.url}}" type="{{img.blob.type}}" />
+    Originals <img ng-repeat="img in images" ng-src="{{img.url}}" type="{{img.file.type}}" />
     Resized <img ng-repeat="img in images" ng-src="{{img.resized.url}}" type="{{img.resized.blob.type}}" />
         
 When used with multiple the image object is always an array of objects with the following properties:
