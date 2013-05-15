@@ -1,6 +1,8 @@
 angular.module('imageupload', [])
     .directive('image', function() {
         'use strict'
+        
+        var URL = window.URL || window.webkitURL;
             
         var getResizeArea = function () {
             var resizeAreaId = 'fileupload-resize-area';
