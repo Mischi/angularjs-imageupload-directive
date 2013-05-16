@@ -2,6 +2,8 @@ angular.module('imageupload', [])
     .directive('image', function() {
         'use strict'
 
+        var URL = window.URL || window.webkitURL;
+
         var getResizeArea = function () {
             var resizeAreaId = 'fileupload-resize-area';
 
@@ -92,7 +94,6 @@ angular.module('imageupload', [])
                         scope.image = [];
 
                     var files = evt.target.files;
-                    var URL = window.URL || window.webkitURL;
                     for(var i = 0; i < files.length; i++) {
                         //create a result object for each file in files
                         var imageResult = {
