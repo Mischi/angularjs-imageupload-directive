@@ -30,7 +30,7 @@ The image object has the following properties:
     resize-max-width="250"
     resize-quality="0.7" />
 Original <img ng-show="image2" ng-src="{{image2.url}}" type="{{image2.file.type}}" />
-Resized <img ng-show="image2" ng-src="{{image2.resized.url}}" type="{{image2.resized.blob.type}}" />
+Resized <img ng-show="image2" ng-src="{{image2.resized.url}}" />
 ```
 
 The image object has the following properties:
@@ -38,7 +38,6 @@ The image object has the following properties:
 - file
 - url
 - resized
-    - blob
     - url
 
 ### Multiple images with resizing
@@ -50,7 +49,7 @@ The image object has the following properties:
     resize-max-width="250"
     resize-quality="0.7" />
 Originals <img ng-repeat="img in images" ng-src="{{img.url}}" type="{{img.file.type}}" />
-Resized <img ng-repeat="img in images" ng-src="{{img.resized.url}}" type="{{img.resized.blob.type}}" />
+Resized <img ng-repeat="img in images" ng-src="{{img.resized.url}}" />
 ```
 
 When used with multiple the image object is always an array of objects with the following properties:
@@ -58,7 +57,6 @@ When used with multiple the image object is always an array of objects with the 
 - file
 - url
 - resized
-    - blob
     - url
 
 See [demo.html](demo.html) for more concrete examples.
@@ -74,7 +72,7 @@ See [demo.html](demo.html) for more concrete examples.
 
 - Upload Image with FileReader
 - Resize Image via canvas
-- Send Image Blob with FormData and $http
+- Send Image Data URL (base64) to whatever you want.
 
 ## How to run the Demo?
 
@@ -90,7 +88,6 @@ open http://localhost:8080
 ## Depends on
 
 - angular-1.1.4
-- [blueimp/JavaScript-Canvas-to-Blob](https://github.com/blueimp/JavaScript-Canvas-to-Blob)
 
 ## Tested in following browsers:
 
@@ -103,5 +100,4 @@ Testimage: 4320x3240 4.22 MB, Resized (70% jpg): 320x270
 
 ## Known Issues
 
-- Firefox 18 (Windows 8) / BUG: filename gets lost and file is just called "blob", working on that...
 - filesize can vary from Browser to Browser.
