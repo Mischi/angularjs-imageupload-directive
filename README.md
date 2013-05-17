@@ -21,6 +21,7 @@ The image object has the following properties:
 
 - file
 - url
+- dataURL
 
 ### Single image with resizing
 
@@ -30,15 +31,17 @@ The image object has the following properties:
     resize-max-width="250"
     resize-quality="0.7" />
 Original <img ng-show="image2" ng-src="{{image2.url}}" type="{{image2.file.type}}" />
-Resized <img ng-show="image2" ng-src="{{image2.resized.url}}" />
+Resized <img ng-show="image2" ng-src="{{image2.resized.dataURL}}" />
 ```
 
 The image object has the following properties:
 
 - file
 - url
+- dataURL
 - resized
-    - url
+    - dataURL
+    - type
 
 ### Multiple images with resizing
 
@@ -49,23 +52,26 @@ The image object has the following properties:
     resize-max-width="250"
     resize-quality="0.7" />
 Originals <img ng-repeat="img in images" ng-src="{{img.url}}" type="{{img.file.type}}" />
-Resized <img ng-repeat="img in images" ng-src="{{img.resized.url}}" />
+Resized <img ng-repeat="img in images" ng-src="{{img.resized.dataURL}}" />
 ```
 
 When used with multiple the image object is always an array of objects with the following properties:
 
 - file
 - url
+- dataURL
 - resized
-    - url
+    - dataURL
+    - type
 
 See [demo.html](demo.html) for more concrete examples.
 
 ### Optional Parameter: 
 
-- resize-quality
-- resize-max-height
-- resize-max-width
+- resize-quality (default is 0.7)
+- resize-type (default is 'image/jpg')
+- resize-max-height (default is 300)
+- resize-max-width (default is 250)
 
 
 ## Features

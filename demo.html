@@ -34,7 +34,7 @@
             <p>Original</p>
             <img ng-show="image2" ng-src="{{image2.url}}" type="{{image2.file.type}}"/>
             <p>Resized</p>
-            <img ng-show="image2" ng-src="{{image2.resized.url}}" type="{{image2.resized.blob.type}}"/>
+            <img ng-show="image2" ng-src="{{image2.resized.dataURL}}"/>
             <button type="submit" ng-click="single(image2.resized)" disabled>Add</button>
         </div>
         <hr />
@@ -77,7 +77,7 @@
             <p>Originals</p>
             <img ng-repeat="img in images4" ng-src="{{img.url}}" type="{{img.file.type}}"/>
             <p>Resized</p>
-            <img ng-repeat="img in images4" ng-src="{{img.resized.url}}" type="{{img.resized.blob.type}}"/>
+            <img ng-repeat="img in images4" ng-src="{{img.resized.dataURL}}" />
             <button type="submit" disabled>Add</button>
         </div>
         <hr />
@@ -86,8 +86,7 @@
     <p>Uploaded Image / Size: {{sizeInBytes}} Bytes</p>
     <img ng-src="{{uploadedImgSrc}}" />
         
-    <script src="javascripts/angular.min.js" " type="text/javascript"></script>
-    <script src="javascripts/canvas-to-blob.min.js" type="text/javascript"></script>
+    <script src="javascripts/angular.min.js" type="text/javascript"></script>
     <script type="text/javascript">
           angular.module('imageuploadDemo', ['imageupload'])
             .controller('DemoCtrl', function($scope, $http) {
