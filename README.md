@@ -111,6 +111,7 @@ Testimage: 4320x3240 4.22 MB, Resized (70% jpg): 320x270
 
 ## TODO's
 
+- Use NgModelController instead of image attribute
 - Create [bower](http://bower.io/) compatible repository (component.json, tags, etc.)
 - Match [angular-component-spec](https://github.com/PascalPrecht/angular-component-spec) when it becomes available
 - Clear image property when Form has been reset
