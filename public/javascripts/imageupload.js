@@ -1,5 +1,5 @@
 angular.module('imageupload', [])
-    .directive('image', function($q) {
+    .directive('image', ['$q', function($q) {
         'use strict'
 
         var URL = window.URL || window.webkitURL;
@@ -135,4 +135,4 @@ angular.module('imageupload', [])
                 });
             }
         };
-    });
+    }]);
