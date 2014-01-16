@@ -105,6 +105,26 @@ angular.module('imageupload', [])
                     });
                 };
 
+                var processImage =  function (file) {
+                    //create a result object for each file in files
+                    var imageResult = {
+                        file: file,
+                        url: URL.createObjectURL(file)
+                    };
+
+                    fileToDataURL(file).then(function (dataURL) {
+                        imageResult.dataURL = dataURL;
+                    });
+
+                    if(scope.resizeMaxHeight || scope.resizeMaxWidth) { //resize image
+                        doResizing(imageResult, function(imageResult) {
+                            applyScope(imageResult);
+                        });
+                    }
+                    else { //no resizing
+                        applyScope(imageResult);
+                    }
+                };
 
                 element.bind('change', function (evt) {
                     //when multiple always return an array of images
@@ -113,24 +133,7 @@ angular.module('imageupload', [])
 
                     var files = evt.target.files;
                     for(var i = 0; i < files.length; i++) {
-                        //create a result object for each file in files
-                        var imageResult = {
-                            file: files[i],
-                            url: URL.createObjectURL(files[i])
-                        };
-
-                        fileToDataURL(files[i]).then(function (dataURL) {
-                            imageResult.dataURL = dataURL;
-                        });
-
-                        if(scope.resizeMaxHeight || scope.resizeMaxWidth) { //resize image
-                            doResizing(imageResult, function(imageResult) {
-                                applyScope(imageResult);
-                            });
-                        }
-                        else { //no resizing
-                            applyScope(imageResult);
-                        }
+                        processImage(files[i]);
                     }
                 });
             }
