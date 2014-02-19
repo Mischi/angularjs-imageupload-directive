@@ -64,6 +64,25 @@ When used with multiple the image object is always an array of objects with the 
     - dataURL
     - type
 
+### Single image with covering
+
+```html
+<input id="inputImage5" 
+  type="file" 
+  accept="image/*" 
+  image="image5" 
+  cover="true" 
+  cover-height="300" 
+  cover-width="100" 
+  cover-x="center" 
+  cover-y="center" 
+  resize-quality="0.7" />            
+  Original  <img ng-show="image5" ng-src="{{image5.url}}" type="{{image5.file.type}}"/>
+  Resized  <img ng-show="image5" ng-src="{{image5.resized.dataURL}}"/>
+```
+
+
+
 See [demo.html](demo.html) for more concrete examples.
 
 ### Optional Parameter: 
@@ -78,6 +97,8 @@ See [demo.html](demo.html) for more concrete examples.
 
 - Upload Image with FileReader
 - Resize Image via canvas
+- Make image cover certain size while maintaining its original height-width ratio
+- Choose cover origin ( left - center - right / top - center - bottom )
 - Send Image Data URL (base64) to whatever you want.
 
 ## How to run the Demo?
