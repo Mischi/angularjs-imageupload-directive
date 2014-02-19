@@ -26,12 +26,17 @@ angular.module('imageupload', [])
             var cover = options.cover || false;
             var coverHeight = options.coverHeight || 300;
             var coverWidth = options.coverWidth || 250;
+            var coverX = options.coverX || 'left';
+            var coverY = options.coverY || 'top';
             var type = options.resizeType || 'image/jpg';
 
             var canvas = getResizeArea();
 
             var height = origImage.height;
             var width = origImage.width;
+
+            var imgX = 0;
+            var imgY = 0;
 
             if(!cover){
 	            // calculate the width and height, constraining the proportions
@@ -49,6 +54,7 @@ angular.module('imageupload', [])
 
 	            canvas.width = width;
 	            canvas.height = height;
+
 	          }else{
 	          	// Logic for calculating size when in cover-mode
 	          	canvas.width = coverHeight;
@@ -75,11 +81,21 @@ angular.module('imageupload', [])
 					      height = height * ratio;
 					      width = width * ratio;
 					    }
+
+					    // place img according to coverX and coverY values
+					    if(width > canvas.width){
+					    	if(coverX === 'right'){ imgX = canvas.width - width; }
+					    	else if (coverX === 'center'){ imgX = (canvas.width - width) / 2; }
+					    }else if(height > canvas.height){
+					    	if(coverY === 'bottom'){ imgY = canvas.height - height; }
+					    	else if (coverY === 'center'){ imgY = (canvas.height - height) / 2; }
+					    }
+
 	          }
 
             //draw image on canvas
             var ctx = canvas.getContext("2d");
-            ctx.drawImage(origImage, 0, 0, width, height);
+            ctx.drawImage(origImage, imgX, imgY, width, height);
 
             // get the data from canvas as 70% jpg (or specified type).
             return canvas.toDataURL(type, quality);
@@ -115,6 +131,8 @@ angular.module('imageupload', [])
                 cover: '@?',
                 coverHeight: '@?',
                 coverWidth: '@?',
+                coverX: '@?',
+                coverY: '@?',
             },
             link: function postLink(scope, element, attrs, ctrl) {
 
