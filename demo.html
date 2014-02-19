@@ -38,8 +38,7 @@
             <button type="submit" ng-click="single(image2.resized)" disabled>Add</button>
         </div>
         <hr />
-
-
+				
 
 
         <h2>Multiple images</h2>
@@ -81,6 +80,32 @@
             <button type="submit" disabled>Add</button>
         </div>
         <hr />
+
+
+
+				<h2>Single image with covering</h2>
+        <div>
+            <label for="inputImage5">Image 5</label>
+            
+            <input id="inputImage5" 
+                type="file" 
+                accept="image/*" 
+                image="image5" 
+                cover="true" 
+                cover-height="300" 
+                cover-width="100" 
+                cover-x="center" 
+                cover-y="bottom" 
+                resize-quality="0.7" />
+            
+            <p>Original</p>
+            <img ng-show="image5" ng-src="{{image5.url}}" type="{{image5.file.type}}"/>
+            <p>Resized</p>
+            <img ng-show="image5" ng-src="{{image5.resized.dataURL}}"/>
+            <button type="submit" ng-click="single(image5.resized)" disabled>Add</button>
+        </div>
+        <hr />
+
     </form>  
     
     <p>Uploaded Image / Size: {{sizeInBytes}} Bytes</p>
