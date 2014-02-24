@@ -27,8 +27,10 @@ angular.module('imageupload', [])
 
             var canvas = getResizeArea();
 
-            var height = origImage.height;
-            var width = origImage.width;
+            var oheight = origImage.height;
+            var owidth = origImage.width;
+            var height = oheight;
+            var width = owidth;
 
             // calculate the width and height, constraining the proportions
             if (width > height) {
@@ -43,12 +45,27 @@ angular.module('imageupload', [])
                 }
             }
 
+            var img = origImage;
+            // introduce downsampling steps if appropriate
+            if(oheight / height > 2) {
+                img = document.createElement('canvas');
+                var tctx = img.getContext("2d");	
+                img.width = owidth;
+                img.height = oheight;
+                tctx.drawImage(origImage, 0, 0, owidth, oheight, 0, 0, owidth/2, oheight/2);
+                oheight /= 2; owidth /= 2;
+                while(oheight / height > 2) {
+                    tctx.drawImage(img, 0, 0, owidth, oheight, 0, 0, owidth/2, oheight/2);
+                    oheight /= 2; owidth /= 2;
+                }
+            }
+
             canvas.width = width;
             canvas.height = height;
 
             //draw image on canvas
             var ctx = canvas.getContext("2d");
-            ctx.drawImage(origImage, 0, 0, width, height);
+            ctx.drawImage(img, 0, 0, owidth, oheight, 0, 0, width, height);
 
             // get the data from canvas as 70% jpg (or specified type).
             return canvas.toDataURL(type, quality);
