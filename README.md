@@ -42,6 +42,10 @@ The image object has the following properties:
 - resized
     - dataURL
     - type
+- width ( from jpeg exif )
+- height ( from jpeg exif )
+- name ( from jpeg exif )
+
 
 ### Multiple images with resizing
 
@@ -63,6 +67,9 @@ When used with multiple the image object is always an array of objects with the 
 - resized
     - dataURL
     - type
+- width ( from jpeg exif )
+- height ( from jpeg exif )
+- name ( from jpeg exif )
 
 See [demo.html](demo.html) for more concrete examples.
 
@@ -93,7 +100,8 @@ open http://localhost:8080
 
 ## Depends on
 
-- angular-1.1.4
+- angular-1.2.16
+- angular-animate-1.2.16
 
 ## Tested in following browsers:
 
