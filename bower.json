@@ -12,6 +12,6 @@
   "dependencies": {
     "angular": "1.2.16",
     "angular-animate": "1.2.16",
-    "jsjpegmeta": "0.0.1"
+    "jsjpegmeta": "1.0.1"
   }
 }
