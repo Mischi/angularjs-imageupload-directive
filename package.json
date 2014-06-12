@@ -14,12 +14,14 @@
     "AngularJS",
     "Image",
     "Upload",
-    "Resizing"
+    "Resizing",
+    "Exif"
   ],
   "author": "Fabian Raetz","Zacknero"
   "license": "BSD",
   "dependencies": {
-    "express": "~3.1.0",
-    "jpegmeta": "0.0.1"
+    "angular": "1.2.16",
+    "angular-animate": "1.2.16",
+    "jsjpegmeta": "0.0.1"
   }
 }
