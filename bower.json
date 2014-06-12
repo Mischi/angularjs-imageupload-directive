@@ -10,6 +10,8 @@
     "package.json"
   ],
   "dependencies": {
-    "angularjs-unstable": "~1.1.4"
+    "angular": "1.2.16",
+    "angular-animate": "1.2.16",
+    "jpegmeta": "0.0.1"
   }
 }

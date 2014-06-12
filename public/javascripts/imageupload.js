@@ -1,6 +1,9 @@
 angular.module('imageupload', [])
+
     .directive('image', function($q) {
         'use strict'
+
+        //require(["bower_components/jsjpegmeta/jpegmeta.js"],function(jpegmeta){});
 
         var URL = window.URL || window.webkitURL;
 
@@ -72,6 +75,25 @@ angular.module('imageupload', [])
             return deferred.promise;
         };
 
+        var fileToDataInfo = function (file) {
+            var deferred = $q.defer();
+            var reader = new FileReader();
+            reader.onloadend = function(){
+                
+                var exif = new JpegMeta.JpegFile(this.result, this.file.name);
+                
+                deferred.resolve(exif);
+            };
+            reader.file = file;
+            reader.readAsBinaryString(file);
+            
+
+            return deferred.promise;
+
+
+        };
+
+
 
         return {
             restrict: 'A',
@@ -80,7 +102,7 @@ angular.module('imageupload', [])
                 resizeMaxHeight: '@?',
                 resizeMaxWidth: '@?',
                 resizeQuality: '@?',
-                resizeType: '@?',
+                resizeType: '@?'
             },
             link: function postLink(scope, element, attrs, ctrl) {
 
@@ -89,7 +111,7 @@ angular.module('imageupload', [])
                         var dataURL = resizeImage(image, scope);
                         imageResult.resized = {
                             dataURL: dataURL,
-                            type: dataURL.match(/:(.+\/.+);/)[1],
+                            type: dataURL.match(/:(.+\/.+);/)[1]
                         };
                         callback(imageResult);
                     });
@@ -97,7 +119,6 @@ angular.module('imageupload', [])
 
                 var applyScope = function(imageResult) {
                     scope.$apply(function() {
-                        //console.log(imageResult);
                         if(attrs.multiple)
                             scope.image.push(imageResult);
                         else
@@ -123,6 +144,13 @@ angular.module('imageupload', [])
                             imageResult.dataURL = dataURL;
                         });
 
+                        fileToDataInfo(files[i]).then(function(exif){
+                            imageResult.name=exif.filename;
+                            imageResult.width=exif.general.pixelWidth.value;
+                            imageResult.height=exif.general.pixelHeight.value;
+
+                        });
+
                         if(scope.resizeMaxHeight || scope.resizeMaxWidth) { //resize image
                             doResizing(imageResult, function(imageResult) {
                                 applyScope(imageResult);
@@ -132,6 +160,8 @@ angular.module('imageupload', [])
                             applyScope(imageResult);
                         }
                     }
+
+
                 });
             }
         };
