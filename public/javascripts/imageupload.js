@@ -30,17 +30,13 @@ angular.module('imageupload', [])
             var height = origImage.height;
             var width = origImage.width;
 
-            // calculate the width and height, constraining the proportions
-            if (width > height) {
-                if (width > maxWidth) {
-                    height = Math.round(height *= maxWidth / width);
-                    width = maxWidth;
-                }
+            // calculate the width and height, constraining the proportions *** Edited by Ege
+            if(height / width < maxHeight / maxWidth) {
+                width = width * (maxHeight / height);
+                height = maxHeight;
             } else {
-                if (height > maxHeight) {
-                    width = Math.round(width *= maxHeight / height);
-                    height = maxHeight;
-                }
+                height = height * (maxWidth / width);
+                width = maxWidth;
             }
 
             canvas.width = width;
@@ -66,7 +62,10 @@ angular.module('imageupload', [])
             var deferred = $q.defer();
             var reader = new FileReader();
             reader.onload = function (e) {
-                deferred.resolve(e.target.result);
+                deferred.resolve({
+                    data: e.target.result,
+                    file: file
+                });
             };
             reader.readAsDataURL(file);
             return deferred.promise;
@@ -95,14 +94,17 @@ angular.module('imageupload', [])
                     });
                 };
 
-                var applyScope = function(imageResult) {
-                    scope.$apply(function() {
-                        //console.log(imageResult);
-                        if(attrs.multiple)
-                            scope.image.push(imageResult);
-                        else
-                            scope.image = imageResult; 
-                    });
+                var applyScope = function(imageResults) {
+                    if(attrs.multiple) {
+                        for(var i in imageResults) {
+                            scope.image.push(imageResults[i]);
+                        }
+                    }
+                    else {
+                        scope.$apply(function() {
+                            scope.image = imageResults[0];
+                        });
+                    }
                 };
 
 
@@ -112,25 +114,39 @@ angular.module('imageupload', [])
                         scope.image = [];
 
                     var files = evt.target.files;
+
+                    var imageResults = [];
+
+                    var addToImageResults = function(imageResult) {
+                        imageResults.push(imageResult);
+                        if(imageResults.length === files.length) {
+                            applyScope(imageResults);
+                            imageResults = [];
+                        }
+                    }
+
+
                     for(var i = 0; i < files.length; i++) {
                         //create a result object for each file in files
-                        var imageResult = {
-                            file: files[i],
-                            url: URL.createObjectURL(files[i])
-                        };
 
-                        fileToDataURL(files[i]).then(function (dataURL) {
-                            imageResult.dataURL = dataURL;
+                        fileToDataURL(files[i]).then(function (object) {
+                            var file = object.file;
+                            var dataURL = object.data;
+                            var imageResult = {
+                                file: file,
+                                url: URL.createObjectURL(file),
+                                dataURL: dataURL
+                            };
+
+                            if(scope.resizeMaxHeight || scope.resizeMaxWidth) { //resize image
+                                doResizing(imageResult, function(imageResult) {
+                                    addToImageResults(imageResult);
+                                });
+                            }
+                            else { //no resizing
+                                addToImageResults(imageResult);
+                            }
                         });
-
-                        if(scope.resizeMaxHeight || scope.resizeMaxWidth) { //resize image
-                            doResizing(imageResult, function(imageResult) {
-                                applyScope(imageResult);
-                            });
-                        }
-                        else { //no resizing
-                            applyScope(imageResult);
-                        }
                     }
                 });
             }
