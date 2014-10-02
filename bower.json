@@ -8,8 +8,5 @@
     "app.js",
     "demo.html",
     "package.json"
-  ],
-  "dependencies": {
-    "angularjs-unstable": "~1.1.4"
-  }
+  ]
 }
