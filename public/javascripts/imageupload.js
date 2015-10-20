@@ -101,9 +101,7 @@ angular.module('imageupload', [])
                         }
                     }
                     else {
-                        scope.$apply(function() {
-                            scope.image = imageResults[0];
-                        });
+                        scope.image = imageResults[0];
                     }
                 };
 
