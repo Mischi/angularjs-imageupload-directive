@@ -1,7 +1,7 @@
 {
   "name": "angularjs-imageupload-directive",
   "description": "imageupload Directive for AngularJS",
-  "version": "0.0.0",
+  "version": "v1.1.0",
   "main": "public/javascripts/imageupload.js",
   "ignore": [
     "**/.*",
