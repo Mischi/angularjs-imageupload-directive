@@ -1,5 +1,5 @@
 function AngularjsImageUploadDirective($q) {
-    'use strict'
+    'use strict';
 
     var URL = window.URL || window.webkitURL;
 
@@ -16,7 +16,7 @@ function AngularjsImageUploadDirective($q) {
         }
 
         return resizeArea;
-    }
+    };
 
     var resizeImage = function (origImage, options) {
         var maxHeight = options.resizeMaxHeight || 300;
@@ -104,6 +104,25 @@ function AngularjsImageUploadDirective($q) {
                 }
             };
 
+            var createResultObject = function (object) {
+                var file = object.file;
+                var dataURL = object.data;
+                var imageResult = {
+                    file: file,
+                    url: URL.createObjectURL(file),
+                    dataURL: dataURL
+                };
+
+                if(scope.resizeMaxHeight || scope.resizeMaxWidth) { //resize image
+                    doResizing(imageResult, function(imageResult) {
+                        addToImageResults(imageResult);
+                    });
+                }
+                else { //no resizing
+                    addToImageResults(imageResult);
+                }
+            };
+
 
             element.bind('change', function (evt) {
                 //when multiple always return an array of images
@@ -120,30 +139,13 @@ function AngularjsImageUploadDirective($q) {
                         applyScope(imageResults);
                         imageResults = [];
                     }
-                }
+                };
 
 
                 for(var i = 0; i < files.length; i++) {
                     //create a result object for each file in files
 
-                    fileToDataURL(files[i]).then(function (object) {
-                        var file = object.file;
-                        var dataURL = object.data;
-                        var imageResult = {
-                            file: file,
-                            url: URL.createObjectURL(file),
-                            dataURL: dataURL
-                        };
-
-                        if(scope.resizeMaxHeight || scope.resizeMaxWidth) { //resize image
-                            doResizing(imageResult, function(imageResult) {
-                                addToImageResults(imageResult);
-                            });
-                        }
-                        else { //no resizing
-                            addToImageResults(imageResult);
-                        }
-                    });
+                    fileToDataURL(files[i]).then(createResultObject);
                 }
             });
         }
