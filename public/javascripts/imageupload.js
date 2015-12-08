@@ -82,6 +82,9 @@ function AngularjsImageUploadDirective($q) {
         },
         link: function postLink(scope, element, attrs, ctrl) {
 
+            var files,
+                imageResults = [];
+
             var doResizing = function(imageResult, callback) {
                 createImage(imageResult.url, function(image) {
                     var dataURL = resizeImage(image, scope);
@@ -130,8 +133,6 @@ function AngularjsImageUploadDirective($q) {
                     imageResults = [];
                 }
             };
-
-            var files;
 
             element.bind('change', function (evt) {
                 //when multiple always return an array of images
