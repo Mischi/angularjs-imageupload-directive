@@ -123,24 +123,24 @@ function AngularjsImageUploadDirective($q) {
                 }
             };
 
+            var addToImageResults = function(imageResult) {
+                imageResults.push(imageResult);
+                if(imageResults.length === files.length) {
+                    applyScope(imageResults);
+                    imageResults = [];
+                }
+            };
+
+            var files;
 
             element.bind('change', function (evt) {
                 //when multiple always return an array of images
                 if(attrs.multiple)
                     scope.image = [];
 
-                var files = evt.target.files;
+                files = evt.target.files;
 
                 var imageResults = [];
-
-                var addToImageResults = function(imageResult) {
-                    imageResults.push(imageResult);
-                    if(imageResults.length === files.length) {
-                        applyScope(imageResults);
-                        imageResults = [];
-                    }
-                };
-
 
                 for(var i = 0; i < files.length; i++) {
                     //create a result object for each file in files
