@@ -30,18 +30,11 @@ angular.module('imageupload', [])
             var height = origImage.height;
             var width = origImage.width;
 
-            // calculate the width and height, constraining the proportions
-            if (width > height) {
-                if (width > maxWidth) {
-                    height = Math.round(height *= maxWidth / width);
-                    width = maxWidth;
-                }
-            } else {
-                if (height > maxHeight) {
-                    width = Math.round(width *= maxHeight / height);
-                    height = maxHeight;
-                }
-            }
+            var scale = 1;
+            if(width > maxWidth || height > maxHeight) scale = Math.min(maxWidth / width, maxHeight / height);
+
+            height = height * scale;
+            width = width * scale;
 
             canvas.width = width;
             canvas.height = height;
